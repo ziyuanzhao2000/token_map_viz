@@ -1,11 +1,16 @@
 
-Installation instruction
+#### Installation instruction
 
-0. Make sure you installed `uv` on your system first. Please see this [page](https://docs.astral.sh/uv/getting-started/installation/) for instructions.
+1. Make sure you have installed `uv` on your system first. Please see this [page](https://docs.astral.sh/uv/getting-started/installation/) for instructions on different systems. 
 
-1. Install necessary packages first with `uv sync`.
+2. Clone the repository and then install necessary packages:
+```
+git clone https://github.com/ziyuanzhao2000/token_map_viz.git
+cd token_map_viz
+uv sync
+```
 
-2. To visualize the WSI and token maps with napari, run the script:
+3. To visualize the WSI and token maps with napari, run the script:
 ```
 uv run python visualize_token_map.py --wsi_path PATH_TO_YOUR_WSI  --label_path PATH_TO_YOUR_LABEL
 ```
