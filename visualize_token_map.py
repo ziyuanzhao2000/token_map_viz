@@ -1,7 +1,5 @@
 import argparse
 import os
-
-import napari
 import numpy as np
 from napari.utils import DirectLabelColormap
 from qtpy.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QWidget
@@ -11,6 +9,9 @@ from ezslide import pyramid_options
 
 # Force napari to load chunks on a background worker thread
 os.environ["NAPARI_ASYNC"] = "1"
+os.environ["NAPARI_OCTREE"] = "1"
+import napari
+
 
 COLORS = [
     (1.0, 1.0, 1.0, 1.0),
@@ -178,7 +179,8 @@ def main():
 
     napari_colormap = build_colormap()
 
-    wsi_pyramid = wsidata.open_wsi(args.wsi_path, reader="tifffile_zarr").reader[0].data
+    wsi_pyramid_ = wsidata.open_wsi(args.wsi_path, reader="tifffile_zarr").reader[0].data
+    wsi_pyramid = [np.transpose(arr, (1, 0, 2)) for arr in wsi_pyramid_]
     
     with pyramid_options(how="mode"):
         label = wsidata.open_wsi(args.label_path, reader="tifffile_zarr_pyramid").reader[0].data
